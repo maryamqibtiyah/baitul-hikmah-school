@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Staff - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">Our Staff</h1>
+                <p class="lead">Meet Our Dedicated Team of Educators</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Staff</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Staff Directory -->
+<section class="py-5">
+    <div class="container">
+        {% for type_name, staff_list in staff_by_type.items %}
+        <div class="mb-5">
+            <h2 class="text-center mb-4">{{ type_name }}</h2>
+            <div class="row">
+                {% for staff in staff_list %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm text-center">
+                        <div class="card-body">
+                            {% if staff.photo %}
+                            <img src="{{ staff.photo.url }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ staff.name }}">
+                            {% else %}
+                            <div class="rounded-circle bg-secondary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                <i class="fas fa-user fa-3x text-white"></i>
+                            </div>
+                            {% endif %}
+                            <h5 class="card-title">{{ staff.name }}</h5>
+                            <p class="text-primary">{{ staff.position }}</p>
+                            <p class="card-text small">{{ staff.qualifications|truncatewords:15 }}</p>
+                            {% if staff.quran_certification %}
+                            <span class="badge bg-success">{{ staff.quran_certification }}</span>
+                            {% endif %}
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-envelope me-1"></i> {{ staff.email|default:"Email not available" }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <i class="fas fa-users fa-4x text-muted mb-3"></i>
+            <h3>No staff members added yet</h3>
+            <p>Please check back later or contact the school for more information.</p>
+            <a href="{% url 'core:contact' %}" class="btn btn-primary">Contact Us</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Join Our Team -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4">Join Our Team</h2>
+        <p class="lead mb-4">We're always looking for qualified and passionate educators to join our team.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact HR</a>
+    </div>
+</section>
+{% endblock %}

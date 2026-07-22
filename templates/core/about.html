@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">About {{ school_name }}</h1>
+                <p class="lead">Knowledge With Divine Wisdom</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">About Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- School Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="mb-4">Welcome to {{ school_name }}</h2>
+                <p class="lead mb-4">A premier Islamic school in Nigeria nurturing young minds from Crèche to College.</p>
+                <p>At {{ school_name }}, we combine the best of Nigerian educational curriculum with authentic Islamic values. Our mission is to raise a generation of scholars who are both academically excellent and morally upright.</p>
+                <p>Established with a vision to provide quality education in a nurturing Islamic environment, we have grown to become one of the leading Islamic schools in Nigeria, serving students from Crèche through College level.</p>
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-check-circle text-primary me-2 mt-1"></i>
+                            <div>
+                                <h6 class="mb-1">Nigerian Curriculum</h6>
+                                <p class="small text-muted">Full Nigerian curriculum with WAEC/NECO preparation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-star-and-crescent text-primary me-2 mt-1"></i>
+                            <div>
+                                <h6 class="mb-1">Islamic Education</h6>
+                                <p class="small text-muted">Quran memorization, Arabic, and Islamic studies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-mosque text-primary me-2 mt-1"></i>
+                            <div>
+                                <h6 class="mb-1">Hifz Program</h6>
+                                <p class="small text-muted">Full Quran memorization program available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex mb-3">
+                            <i class="fas fa-users text-primary me-2 mt-1"></i>
+                            <div>
+                                <h6 class="mb-1">Qualified Staff</h6>
+                                <p class="small text-muted">Experienced teachers with Islamic certifications</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://via.placeholder.com/600x400/2c5f2d/white?text={{ school_name }}" alt="{{ school_name }}" class="img-fluid rounded shadow-lg" style="width: 100%; height: auto;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="fas fa-bullseye fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title mb-4">Our Mission</h3>
+                        <p class="card-text">To fulfill the essence of creation in our students through a balanced educational system as ordained by Allah and His Rasul.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="fas fa-eye fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="card-title mb-4">Our Vision</h3>
+                        <p class="card-text">To be one of the most admirable educational institution(Islamic and western) by adherence to high quality moral and academic standard that produce a good leader worthy of emulation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Core Values -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Core Values</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-quran fa-3x text-primary"></i>
+                    </div>
+                    <h4>Islamic Foundation</h4>
+                    <p>Everything we do is rooted in Islamic principles and values</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+                    </div>
+                    <h4>Academic Excellence</h4>
+                    <p>Striving for the highest standards in Nigerian education</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-hand-heart fa-3x text-primary"></i>
+                    </div>
+                    <h4>Character Development</h4>
+                    <p>Building strong Islamic character and moral values</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-chalkboard-user fa-3x text-primary"></i>
+                    </div>
+                    <h4>Quality Teaching</h4>
+                    <p>Dedicated teachers committed to student success</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-handshake fa-3x text-primary"></i>
+                    </div>
+                    <h4>Community Partnership</h4>
+                    <p>Working with parents and community for student success</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-globe fa-3x text-primary"></i>
+                    </div>
+                    <h4>Global Perspective</h4>
+                    <p>Preparing students for success in a globalized world</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h2 class="display-4 fw-bold">{{ years_count }}+</h2>
+                <p class="mb-0">Years of Excellence</p>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h2 class="display-4 fw-bold">{{ student_count }}+</h2>
+                <p class="mb-0">Students Enrolled</p>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h2 class="display-4 fw-bold">{{ staff_count }}+</h2>
+                <p class="mb-0">Qualified Staff</p>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h2 class="display-4 fw-bold">{{ graduates_count }}+</h2>
+                <p class="mb-0">Graduates</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Proprietress Section -->
+{% if proprietress %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Meet Our Proprietress</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if proprietress.photo %}
+                            <img src="{{ proprietress.photo.url }}" class="img-fluid rounded-start h-100 w-100" style="object-fit: cover;" alt="{{ proprietress.name }}">
+                            {% else %}
+                            <div class="bg-secondary h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                                <i class="fas fa-user-circle fa-5x text-white"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ proprietress.name }}</h3>
+                                <h5 class="text-primary">{{ proprietress.position }}</h5>
+                                <p class="card-text mt-3">{{ proprietress.bio }}</p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <i class="fas fa-graduation-cap me-2"></i>{{ proprietress.qualifications }}
+                                    </small>
+                                </p>
+                                {% if proprietress.quran_certification %}
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <i class="fas fa-quran me-2"></i>{{ proprietress.quran_certification }}
+                                    </small>
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Head Teachers Section -->
+{% if head_teachers %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Head Teachers</h2>
+        <div class="row">
+            {% for teacher in head_teachers %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center">
+                    <div class="card-body">
+                        {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ teacher.name }}">
+                        {% else %}
+                        <div class="rounded-circle bg-secondary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                            <i class="fas fa-user fa-3x text-white"></i>
+                        </div>
+                        {% endif %}
+                        <h4>{{ teacher.name }}</h4>
+                        <p class="text-primary">{{ teacher.position }}</p>
+                        <p class="card-text small">{{ teacher.qualifications }}</p>
+                        {% if teacher.quran_certification %}
+                        <span class="badge bg-success">{{ teacher.quran_certification }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Teachers Section -->
+{% if teachers %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Dedicated Teachers</h2>
+        <div class="row">
+            {% for teacher in teachers %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm text-center">
+                    <div class="card-body">
+                        {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" class="rounded-circle mb-3" width="120" height="120" style="object-fit: cover;" alt="{{ teacher.name }}">
+                        {% else %}
+                        <div class="rounded-circle bg-secondary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                            <i class="fas fa-user fa-2x text-white"></i>
+                        </div>
+                        {% endif %}
+                        <h5>{{ teacher.name }}</h5>
+                        <p class="text-muted small">{{ teacher.position }}</p>
+                        <p class="small">{{ teacher.qualifications|truncatewords:10 }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'core:staff' %}" class="btn btn-outline-primary">View All Staff</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-5 text-center">
+    <div class="container">
+        <h2 class="mb-4">Enroll Your Child Today</h2>
+        <p class="lead mb-4">Give your child the gift of quality education rooted in Islamic values</p>
+        <a href="#" class="btn btn-primary btn-lg">Apply Now</a>
+        <a href="#" class="btn btn-outline-primary btn-lg ms-3">Contact Us</a>
+    </div>
+</section>
+{% endblock %}

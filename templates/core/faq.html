@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ - Frequently Asked Questions - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">Frequently Asked Questions</h1>
+                <p class="lead">Find answers to common questions about our school</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">FAQ</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                {% for category_name, faqs in faqs_by_category.items %}
+                <div class="faq-category mb-5">
+                    <h3 class="mb-4 pb-2 border-bottom">
+                        <i class="fas fa-folder-open text-primary me-2"></i>{{ category_name }}
+                    </h3>
+                    
+                    <div class="accordion" id="accordion{{ forloop.counter }}">
+                        {% for faq in faqs %}
+                        <div class="accordion-item faq-item">
+                            <h2 class="accordion-header" id="heading{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#collapse{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                                    <strong>{{ faq.question }}</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ forloop.parentloop.counter }}{{ forloop.counter }}" 
+                                 class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                 data-bs-parent="#accordion{{ forloop.parentloop.counter }}">
+                                <div class="accordion-body">
+                                    {{ faq.answer|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-5">
+                    <i class="fas fa-comments fa-4x text-muted mb-3"></i>
+                    <h3>No FAQs added yet</h3>
+                    <p>Check back soon for answers to common questions.</p>
+                </div>
+                {% endfor %}
+                
+                <!-- Still have questions section -->
+                <div class="alert alert-info text-center mt-4">
+                    <i class="fas fa-headset fa-2x mb-2"></i>
+                    <h5 class="mb-2">Still have questions?</h5>
+                    <p class="mb-3">Can't find what you're looking for? We're here to help!</p>
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary">
+                        <i class="fas fa-envelope me-2"></i>Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,106 @@
+html
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">{{ event.title }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:events' %}" class="text-white">Events</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">{{ event.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Event Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                {% if event.image %}
+                <img src="{{ event.image.url }}" class="img-fluid rounded shadow-sm mb-4" alt="{{ event.title }}">
+                {% endif %}
+                
+                <div class="mb-4">
+                    <span class="badge bg-primary">{{ event.get_event_type_display }}</span>
+                </div>
+                
+                <div class="event-description">
+                    {{ event.description|linebreaks }}
+                </div>
+                
+                <div class="alert alert-info mt-4">
+                    <h5 class="mb-3">Event Details</h5>
+                    <p class="mb-1"><i class="fas fa-calendar-alt me-2"></i> <strong>Date:</strong> {{ event.start_date|date:"l, F d, Y" }}</p>
+                    <p class="mb-1"><i class="fas fa-clock me-2"></i> <strong>Time:</strong> {{ event.start_date|time }} - {{ event.end_date|time }}</p>
+                    <p class="mb-0"><i class="fas fa-location-dot me-2"></i> <strong>Location:</strong> {{ event.location }}</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Share This Event</h5>
+                        <div class="d-flex justify-content-around">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-primary">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-info">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://wa.me/?text={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-success">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Add to Calendar</h5>
+                        <p class="card-text">Don't miss this event!</p>
+                        <a href="#" class="btn btn-light">Download .ics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Events -->
+{% if related_events %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Related Events</h2>
+        <div class="row">
+            {% for related in related_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">{{ related.get_event_type_display }}</span>
+                        <h5 class="card-title">{{ related.title }}</h5>
+                        <p class="card-text small">{{ related.description|truncatewords:15 }}</p>
+                        <p class="text-muted small">
+                            <i class="fas fa-calendar me-1"></i> {{ related.start_date|date:"M d, Y" }}
+                        </p>
+                        <a href="{% url 'core:event_detail' related.slug %}" class="btn btn-sm btn-outline-primary">View Event</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

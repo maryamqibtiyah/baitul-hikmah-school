@@ -1,0 +1,340 @@
+html
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">School Events & Celebrations</h1>
+                <p class="lead">Stay updated with our upcoming events and activities</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Events</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End of Session Party Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center text-white mb-4">
+                <i class="fas fa-party-horn fa-4x mb-3"></i>
+                <h1 class="display-4">End of Session Party 2025</h1>
+                <p class="lead">Celebrating Excellence, Achievements, and Memories</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5 text-center">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-calendar-check fa-3x text-primary"></i>
+                                <h5 class="mt-2">Date</h5>
+                                <p class="text-muted">July 15th, 2025</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-clock fa-3x text-primary"></i>
+                                <h5 class="mt-2">Time</h5>
+                                <p class="text-muted">10:00 AM - 6:00 PM</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+                                <h5 class="mt-2">Venue</h5>
+                                <p class="text-muted">School Assembly Hall</p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <h4 class="mb-3">Theme: "Celebrating Our Journey"</h4>
+                        <p>Join us for a day of fun, awards, entertainment, and celebration as we mark the end of another successful academic session. Activities include:</p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><span class="badge bg-primary">🏆 Award Ceremony</span></li>
+                            <li class="list-inline-item"><span class="badge bg-success">🎭 Cultural Display</span></li>
+                            <li class="list-inline-item"><span class="badge bg-info">🍽️ Feast</span></li>
+                            <li class="list-inline-item"><span class="badge bg-warning">🎵 Live Music</span></li>
+                            <li class="list-inline-item"><span class="badge bg-danger">📸 Photo Session</span></li>
+                        </ul>
+                        
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-ticket-alt me-2"></i>Get Your Ticket
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SS3 Graduands Profile Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <i class="fas fa-graduation-cap fa-4x text-primary mb-3"></i>
+                <h1 class="display-4">Meet Our SS3 Graduands</h1>
+                <p class="lead">Class of 2025 - The Future Leaders</p>
+                <p>Celebrating the achievements of our outstanding graduating students</p>
+            </div>
+        </div>
+        
+        {% if graduands %}
+        <div class="row">
+            {% for graduand in graduands %}
+            <div class="col-md-4 col-lg-3 mb-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-img-top text-center pt-4">
+                        {% if graduand.photo %}
+                        <img src="{{ graduand.photo.url }}" class="rounded-circle" width="180" height="180" style="object-fit: cover;" alt="{{ graduand.name }}">
+                        {% else %}
+                        <div class="rounded-circle bg-secondary mx-auto d-flex align-items-center justify-content-center" style="width: 180px; height: 180px;">
+                            <i class="fas fa-user-graduate fa-5x text-white"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title mb-1">{{ graduand.name }}</h4>
+                        <p class="text-primary mb-2">{{ graduand.nickname|default:"SS3 Student" }}</p>
+                        
+                        <button type="button" class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#graduandModal{{ forloop.counter }}">
+                            <i class="fas fa-star me-1"></i>View Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal for each graduand -->
+            <div class="modal fade" id="graduandModal{{ forloop.counter }}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary text-white">
+                            <h5 class="modal-title">{{ graduand.name }}</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-5 text-center mb-3 mb-md-0">
+                                    {% if graduand.photo %}
+                                    <img src="{{ graduand.photo.url }}" class="rounded-circle" width="200" height="200" style="object-fit: cover;" alt="{{ graduand.name }}">
+                                    {% else %}
+                                    <div class="rounded-circle bg-secondary mx-auto d-flex align-items-center justify-content-center" style="width: 200px; height: 200px;">
+                                        <i class="fas fa-user-graduate fa-6x text-white"></i>
+                                    </div>
+                                    {% endif %}
+                                    <div class="mt-3">
+                                        <span class="badge bg-success">Class of {{ graduand.graduation_year }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <h4>About {{ graduand.name }}</h4>
+                                    
+                                    {% if graduand.aspiration %}
+                                    <p><strong><i class="fas fa-rocket text-primary me-2"></i>Aspiration:</strong><br>{{ graduand.aspiration }}</p>
+                                    {% endif %}
+                                    
+                                    {% if graduand.favorite_memory %}
+                                    <p><strong><i class="fas fa-heart text-danger me-2"></i>Favorite Memory:</strong><br>{{ graduand.favorite_memory }}</p>
+                                    {% endif %}
+                                    
+                                    {% if graduand.message %}
+                                    <p><strong><i class="fas fa-comment text-info me-2"></i>Message:</strong><br>"{{ graduand.message }}"</p>
+                                    {% endif %}
+                                    
+                                    {% if graduand.achievements %}
+                                    <p><strong><i class="fas fa-trophy text-warning me-2"></i>Achievements:</strong><br>{{ graduand.achievements }}</p>
+                                    {% endif %}
+                                    
+                                    {% if graduand.future_plans %}
+                                    <p><strong><i class="fas fa-graduation-cap me-2"></i>Future Plans:</strong><br>{{ graduand.future_plans }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-envelope me-1"></i>Send Congratulations
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-primary btn-lg">
+                <i class="fas fa-envelope me-2"></i>Send Best Wishes to Graduands
+            </a>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-users fa-4x text-muted mb-3"></i>
+            <h3>Graduand profiles coming soon!</h3>
+            <p>Check back later to meet our amazing SS3 students.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+</style>
+
+<!-- Featured Events -->
+{% if featured_events %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Events</h2>
+        <div class="row">
+            {% for event in featured_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if event.image %}
+                    <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-calendar-alt fa-4x text-white"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">{{ event.get_event_type_display }}</span>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                        <p class="text-muted small">
+                            <i class="fas fa-calendar me-1"></i> {{ event.start_date|date:"F d, Y" }}<br>
+                            <i class="fas fa-clock me-1"></i> {{ event.start_date|time }} - {{ event.end_date|time }}<br>
+                            <i class="fas fa-location-dot me-1"></i> {{ event.location }}
+                        </p>
+                        <a href="{% url 'core:event_detail' event.slug %}" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Islamic Events Section -->
+{% if islamic_events %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">
+            <i class="fas fa-mosque me-2"></i>Islamic Events
+        </h2>
+        <div class="row">
+            {% for event in islamic_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-star-and-crescent fa-3x text-success"></i>
+                        </div>
+                        <h5 class="card-title text-center">{{ event.title }}</h5>
+                        <p class="card-text text-center">{{ event.description|truncatewords:15 }}</p>
+                        <p class="text-center text-muted small">
+                            <i class="fas fa-calendar me-1"></i> {{ event.start_date|date:"F d, Y" }}
+                        </p>
+                        <div class="text-center">
+                            <a href="{% url 'core:event_detail' event.slug %}" class="btn btn-sm btn-outline-success">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- All Upcoming Events -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">All Upcoming Events</h2>
+        {% if upcoming_events %}
+        <div class="row">
+            {% for event in upcoming_events %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="row g-0">
+                        <div class="col-md-3 bg-primary d-flex align-items-center justify-content-center text-white p-3">
+                            <div class="text-center">
+                                <h2 class="display-4 mb-0">{{ event.start_date|date:"d" }}</h2>
+                                <p class="mb-0">{{ event.start_date|date:"M" }}</p>
+                                <small>{{ event.start_date|date:"Y" }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">{{ event.get_event_type_display }}</span>
+                                <h5 class="card-title">{{ event.title }}</h5>
+                                <p class="card-text">{{ event.description|truncatewords:25 }}</p>
+                                <p class="text-muted small mb-0">
+                                    <i class="fas fa-location-dot me-1"></i> {{ event.location }}
+                                </p>
+                                <a href="{% url 'core:event_detail' event.slug %}" class="btn btn-link p-0 mt-2">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-calendar-alt fa-4x text-muted mb-3"></i>
+            <h3>No upcoming events</h3>
+            <p>Please check back later for updates.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Past Events -->
+{% if past_events %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Past Events</h2>
+        <div class="row">
+            {% for event in past_events %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-muted">{{ event.start_date|date:"F d, Y" }}</h6>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text small">{{ event.description|truncatewords:15 }}</p>
+                        <a href="{% url 'core:event_detail' event.slug %}" class="btn btn-sm btn-outline-secondary">View Gallery</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

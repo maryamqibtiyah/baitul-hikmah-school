@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<!-- Hero Section -->
+<!-- Hero Section with Gradient Background -->
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, #2c5f2d 0%, #1a3a1a 100%); min-height: 500px; display: flex; align-items: center; color: white; padding: 100px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">Welcome to Baitul-Hikmah Int'l Academy</h1>
+        <p class="lead mb-4">Knowledge With Divine Wisdom - From Crèche to College</p>
+        <a href="{% url 'core:admission' %}" class="btn btn-primary btn-lg me-2">Apply Now</a>
+        <a href="{% url 'core:about' %}" class="btn btn-outline-light btn-lg">Learn More</a>
+    </div>
+</section>
+
+<!-- School Levels Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Educational Journey</h2>
+        <div class="row">
+            {% for level in school_levels %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if level.image %}
+                    <img src="{{ level.image.url }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-secondary" style="height: 200px;"></div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ level.name }}</h5>
+                        <p class="text-muted">{{ level.age_range }}</p>
+                        <p class="card-text">{{ level.description|truncatewords:20 }}</p>
+                        <a href="{% url 'core:school_level' level.slug %}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-3">
+                <h3>10+</h3>
+                <p>Years of Excellence</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>300+</h3>
+                <p>Students</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>20+</h3>
+                <p>Qualified Staff</p>
+            </div>
+            <div class="col-md-3 mb-3">
+                <h3>80%</h3>
+                <p>WAEC & JAMB Success Rate</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured News -->
+{% if featured_news %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Latest News</h2>
+        <div class="row">
+            {% for news in featured_news %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if news.image %}
+                    <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ news.title }}</h5>
+                        <p class="text-muted">{{ news.published_date|date:"F d, Y" }}</p>
+                        <p class="card-text">{{ news.summary }}</p>
+                        <a href="{% url 'core:news_detail' news.slug %}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Staff -->
+{% if featured_staff %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Leadership</h2>
+        <div class="row">
+            {% for staff in featured_staff %}
+            <div class="col-md-3 mb-4 text-center">
+                {% if staff.photo %}
+                <img src="{{ staff.photo.url }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ staff.name }}">
+                {% else %}
+                <div class="rounded-circle bg-secondary mx-auto mb-3" style="width: 150px; height: 150px;"></div>
+                {% endif %}
+                <h5>{{ staff.name }}</h5>
+                <p class="text-muted">{{ staff.position }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

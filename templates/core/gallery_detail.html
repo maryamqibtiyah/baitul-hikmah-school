@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ gallery.title }} - Gallery - {{ school_name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-primary text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-5">{{ gallery.title }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:gallery_list' %}" class="text-white">Gallery</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">{{ gallery.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Photos -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            {% for image in images %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.caption|default:gallery.title }}" style="height: 250px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                    <div class="card-body">
+                        <p class="card-text small">{{ image.caption|default:"No caption" }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="imageModal{{ forloop.counter }}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ gallery.title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+                            {% if image.caption %}
+                            <p class="mt-2">{{ image.caption }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-image fa-4x text-muted mb-3"></i>
+                <h3>No images in this album yet</h3>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'core:gallery_list' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Gallery
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
