@@ -1,0 +1,44 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.sqlite3
+db.sqlite3
+
+# Django
+*.log
+local_settings.py
+.env
+
+# Media and Static
+media/
+staticfiles/
+static/css/
+static/js/
+static/images/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+
+# Virtual Environment
+venv/
+env/
+.venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+*.orig
