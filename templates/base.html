@@ -20,12 +20,13 @@
 </head>
 <body>
     <!-- Navigation -->
-<nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, #2c5f2d 0%, #1a3a1a 100%); padding: 10px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+<!-- Navigation with Background Image -->
+<nav class="navbar navbar-expand-lg" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static 'images/sch.jpg' %}'); background-size: cover; background-position: center; padding: 10px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
     <div class="container">
         <!-- Logo and Brand -->
         <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
             <img src="{% static 'images/logo.png' %}" alt="Baitul-Hikmah Int'l Academy" height="50" class="me-2" style="border-radius: 5px;">
-            <span style="color: #ffffff; font-weight: bold; font-size: 1.3rem;">Baitul-Hikmah Int'l Academy</span>
+            <span style="color: #ffffff; font-weight: bold; font-size: 1.3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Baitul-Hikmah Int'l Academy</span>
         </a>
         
         <!-- Mobile Toggle Button -->
