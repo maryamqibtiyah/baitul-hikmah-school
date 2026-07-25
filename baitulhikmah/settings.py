@@ -3,9 +3,6 @@ Django settings for baitulhikmah project.
 """
 
 import os
-import cloudinary
-import cloudinary.uploader
-import cloudinary.apis
 from pathlib import Path
 
 
@@ -30,8 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise',
-    'cloudinary_storage',  # ← ADD THIS
-    'cloudinary',          # ← ADD THIS
     'core',
     'admissions',
     'events',
@@ -112,15 +107,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # ============================================================
 # MEDIA FILES - Using Cloudinary
 # ============================================================
-import cloudinary
 
-cloudinary.config(
-    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key=os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
-)
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'  # This will be handled by Cloudinary
 MEDIA_ROOT = BASE_DIR / 'media'
 

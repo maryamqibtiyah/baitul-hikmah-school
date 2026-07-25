@@ -13,7 +13,6 @@ local_settings.py
 .env
 
 # Media and Static
-media/
 staticfiles/
 static/css/
 static/js/
