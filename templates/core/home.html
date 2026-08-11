@@ -5,13 +5,17 @@
 <!-- Hero Section -->
 <!-- Hero Section -->
 <!-- Hero Section with Gradient Background -->
-<!-- Hero Section -->
-<section class="hero-section" style="background: linear-gradient(135deg, #2c5f2d 0%, #1a3a1a 100%); min-height: 500px; display: flex; align-items: center; color: white; padding: 100px 0;">
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">Welcome to Baitul-Hikmah Int'l Academy</h1>
-        <p class="lead mb-4">Knowledge With Divine Wisdom - From Crèche to College</p>
-        <a href="{% url 'core:admission' %}" class="btn btn-primary btn-lg me-2">Apply Now</a>
-        <a href="{% url 'core:about' %}" class="btn btn-outline-light btn-lg">Learn More</a>
+<!-- Hero Section with Background Image -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{% static 'images/sch.jpg' %}'); background-size: cover; background-position: center; min-height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 60px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4 mb-4">Welcome to {{ school_name }}</h1>
+                <p class="lead mb-4">Knowledge With Divine Wisdom - From Crèche to College</p>
+                <a href="{% url 'core:admission' %}" class="btn btn-primary btn-lg me-2">Apply Now</a>
+                <a href="{% url 'core:about' %}" class="btn btn-outline-light btn-lg">Learn More</a>
+            </div>
+        </div>
     </div>
 </section>
 

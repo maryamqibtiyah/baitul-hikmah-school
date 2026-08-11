@@ -5,18 +5,16 @@ Django settings for baitulhikmah project.
 import os
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6wz5*@_k7!q3m9x2p%4r&8v$w^1n#b@!f$g%h^j*k(l)p(o)q='
-# NOTE: Change this to a real secret key for production!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True  # ← TRUE for local development
 
-ALLOWED_HOSTS = ['*']  # Update with your domain later
+ALLOWED_HOSTS = ['*']  # ← Allows localhost and other hosts
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,14 +24,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise',
     'core',
     'admissions',
     'events',
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← Must be here
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -42,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'baitulhikmah.urls'
+ROOT_URLCONF = 'baitulhikmah_project.urls'
 
 TEMPLATES = [
     {
@@ -61,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'baitulhikmah.wsgi.application'
+WSGI_APPLICATION = 'baitulhikmah_project.wsgi.application'
 
 # Database
 DATABASES = {
@@ -99,17 +96,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ============================================================
-# MEDIA FILES (User Uploaded Files)
+# MEDIA FILES (User Uploaded Images)
 # ============================================================
-# ============================================================
-# MEDIA FILES - Using Cloudinary
-# ============================================================
-
-
-MEDIA_URL = '/media/'  # This will be handled by Cloudinary
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # ============================================================
