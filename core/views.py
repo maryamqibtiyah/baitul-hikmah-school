@@ -21,7 +21,7 @@ def about(request):
     head_teachers = Staff.objects.filter(staff_type='HEAD_TEACHER')
     teachers = Staff.objects.filter(staff_type='TEACHER')[:8]
     
-    # Get school info from database or use defaults
+    # Get school info from database
     school_info = SchoolInfo.objects.first()
     if not school_info:
         # Create default if doesn't exist
@@ -35,13 +35,12 @@ def about(request):
         'proprietress': proprietress,
         'head_teachers': head_teachers,
         'teachers': teachers,
-        'staff_count': Staff.objects.count(),
+        'staff_count': 30,  # ← Changed from Staff.objects.count() to 14
         'student_count': school_info.total_students,
         'years_count': school_info.years_of_excellence,
         'graduates_count': school_info.total_graduates,
     }
     return render(request, 'core/about.html', context)
-
 def school_level_detail(request, slug):
     level = get_object_or_404(SchoolLevel, slug=slug)
     teachers = Staff.objects.filter(staff_type='TEACHER')[:6]

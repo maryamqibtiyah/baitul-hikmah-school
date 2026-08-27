@@ -35,7 +35,8 @@ class SchoolLevel(models.Model):
 
 class Staff(models.Model):
     STAFF_TYPES = [
-        ('PROPRIETRESS', 'Proprietress'),
+        ('PROPRIETOR', 'Proprietor'),
+        ('DIRECTOR OF STUDIES', 'Director of studies'),
         ('PRINCIPAL', 'Principal'),
         ('HEAD_TEACHER', 'Head Teacher'),
         ('TEACHER', 'Teacher'),
@@ -297,3 +298,37 @@ class FAQ(models.Model):
     
     def __str__(self):
         return self.question
+class Gallery(models.Model):
+    """Photo Gallery Album"""
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField(blank=True)
+    cover_image = models.ImageField(upload_to='gallery_covers/', blank=True, null=True)
+    event_date = models.DateField(blank=True, null=True)
+    is_featured = models.BooleanField(default=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_date']
+        verbose_name_plural = "Galleries"
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.title
+
+class GalleryImage(models.Model):
+    """Individual images in a gallery"""
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='gallery/')
+    caption = models.CharField(max_length=200, blank=True)
+    order = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ['order']
+    
+    def __str__(self):
+        return f"{self.gallery.title} - Image {self.order + 1}"

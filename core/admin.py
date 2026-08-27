@@ -120,3 +120,22 @@ class FAQAdmin(admin.ModelAdmin):
             'fields': ('question', 'answer', 'category', 'order', 'is_active')
         }),
     )
+from .models import Gallery, GalleryImage
+
+class GalleryImageInline(admin.TabularInline):
+    model = GalleryImage
+    extra = 3
+    fields = ['image', 'caption', 'order']
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ['title', 'event_date', 'is_featured', 'created_date']
+    list_filter = ['is_featured', 'created_date']
+    search_fields = ['title', 'description']
+    prepopulated_fields = {'slug': ('title',)}
+    inlines = [GalleryImageInline]
+    fieldsets = (
+        ('Gallery Information', {
+            'fields': ('title', 'slug', 'description', 'cover_image', 'event_date', 'is_featured')
+        }),
+    )
