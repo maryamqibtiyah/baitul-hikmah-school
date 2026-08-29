@@ -27,11 +27,15 @@
             {% for level in school_levels %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    {% if level.image %}
-                    <img src="{{ level.image.url }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
-                    {% else %}
-                    <div class="card-img-top bg-secondary" style="height: 200px;"></div>
-                    {% endif %}
+                   {% if level.image %}
+    {% if 'ik.imagekit.io' in level.image.url %}
+        <img src="{{ level.image.url }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
+    {% else %}
+        <img src="https://ik.imagekit.io/maryamqibtiyah/school-levels/{{ level.image }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
+    {% endif %}
+{% else %}
+<div class="card-img-top bg-secondary" style="height: 200px;"></div>
+{% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ level.name }}</h5>
                         <p class="text-muted">{{ level.age_range }}</p>

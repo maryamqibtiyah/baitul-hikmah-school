@@ -50,7 +50,7 @@ class Staff(models.Model):
     qualifications = models.TextField()
     quran_certification = models.CharField(max_length=200, blank=True)
     bio = models.TextField()
-    photo = models.ImageField(upload_to='staff/')
+    photo = models.URLField(max_length=500, blank=True, null=True)
     email = models.EmailField(blank=True)
     phone = models.CharField(max_length=15, blank=True)
     order = models.IntegerField(default=0)
