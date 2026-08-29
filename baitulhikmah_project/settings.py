@@ -3,6 +3,7 @@ Django settings for baitulhikmah project.
 """
 
 import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -107,3 +108,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # DEFAULT AUTO FIELD
 # ============================================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ============================================================
+# SUPABASE STORAGE CONFIGURATION
+# ============================================================
+SUPABASE_URL = 'https://fojwjaioyhnwnpjiojmo.supabase.co'
+SUPABASE_KEY = 'sb_publishable_D3DzYBoSTHm-UBPMQ3Kjyw_RYVYQ...'  # Your public key
+
+# S3-compatible storage settings
+AWS_ACCESS_KEY_ID = SUPABASE_KEY
+AWS_SECRET_ACCESS_KEY = 'sb_secret_ftshyfGwBKk-i8hYvOnFSw_WNtSHnaQ'  # ← Replace with your secret key
+AWS_STORAGE_BUCKET_NAME = 'media'
+AWS_S3_ENDPOINT_URL = f'{SUPABASE_URL}/storage/v1/s3'
+AWS_S3_REGION_NAME = 'us-east-1'  # Default region
+AWS_DEFAULT_ACL = 'public-read'
+AWS_QUERYSTRING_AUTH = False
+
+# Use Supabase Storage for media files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
