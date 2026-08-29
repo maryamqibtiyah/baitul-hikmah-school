@@ -111,17 +111,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ============================================================
 # SUPABASE STORAGE CONFIGURATION
 # ============================================================
-SUPABASE_URL = 'https://fojwjaioyhnwnpjiojmo.supabase.co'
-SUPABASE_KEY = 'sb_publishable_D3DzYBoSTHm-UBPMQ3Kjyw_RYVYQ...'  # Your public key
+# Supabase Configuration
+SUPABASE_URL = os.environ.get('SUPABASE_URL')
+SUPABASE_KEY = os.environ.get('SUPABASE_KEY')
 
 # S3-compatible storage settings
-AWS_ACCESS_KEY_ID = SUPABASE_KEY
-AWS_SECRET_ACCESS_KEY = 'sb_secret_ftshyfGwBKk-i8hYvOnFSw_WNtSHnaQ'  # ← Replace with your secret key
-AWS_STORAGE_BUCKET_NAME = 'media'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = f'{SUPABASE_URL}/storage/v1/s3'
-AWS_S3_REGION_NAME = 'us-east-1'  # Default region
+AWS_S3_REGION_NAME = 'us-east-1'
 AWS_DEFAULT_ACL = 'public-read'
 AWS_QUERYSTRING_AUTH = False
 
-# Use Supabase Storage for media files
 DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
