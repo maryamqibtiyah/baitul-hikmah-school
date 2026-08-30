@@ -18,24 +18,19 @@ class SchoolLevel(models.Model):
     curriculum = models.TextField(help_text="Nigerian curriculum details")
     islamic_studies = models.TextField(help_text="Quran, Arabic, Islamic studies")
     admission_requirements = models.TextField()
-    fees_summary = models.TextField(help_text="Brief fee summary")    
-    image = models.TextField(blank=True, null=True)
-        def save(self, *args, **kwargs):
-        print(f"Saving image URL: {self.image}")  # ← Add this
-        super().save(*args, **kwargs)
+    fees_summary = models.TextField(help_text="Brief fee summary")
+    image = models.TextField(blank=True, null=True)  # ← Should be TextField
     order = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['order']
     
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):  # ← This must be indented 4 spaces
+        print(f"Saving image URL: {self.image}")  # ← This must be indented 8 spaces
+        super().save(*args, **kwargs)  # ← This must be indented 8 spaces
     
     def __str__(self):
         return self.name
-
 class Staff(models.Model):
     STAFF_TYPES = [
         ('PROPRIETOR', 'Proprietor'),
