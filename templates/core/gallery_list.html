@@ -4,7 +4,6 @@
 {% block title %}Photo Gallery - {{ school_name }}{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
 <section class="page-header bg-primary text-white py-5">
     <div class="container">
         <div class="row">
@@ -22,7 +21,6 @@
     </div>
 </section>
 
-<!-- All Galleries -->
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -30,11 +28,11 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="card h-100 shadow-sm">
                     {% if gallery.cover_image %}
-                    <img src="{{ gallery.cover_image.url }}" class="card-img-top" alt="{{ gallery.title }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ gallery.cover_image }}" class="card-img-top" alt="{{ gallery.title }}" style="height: 200px; object-fit: cover;">
                     {% else %}
-                    <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="fas fa-image fa-4x text-white"></i>
-                    </div>
+                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="fas fa-image fa-4x text-white"></i>
+                        </div>
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ gallery.title }}</h5>

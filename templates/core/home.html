@@ -77,6 +77,8 @@
                 <div class="card h-100 shadow-sm">
                     {% if news.image %}
                         <img src="{{ news.image }}" class="card-img-top" alt="{{ news.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-secondary" style="height: 200px;"></div>
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ news.title }}</h5>

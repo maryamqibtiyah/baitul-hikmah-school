@@ -4,7 +4,6 @@
 {% block title %}{{ gallery.title }} - Gallery - {{ school_name }}{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
 <section class="page-header bg-primary text-white py-4">
     <div class="container">
         <div class="row">
@@ -22,14 +21,13 @@
     </div>
 </section>
 
-<!-- Gallery Photos -->
 <section class="py-5">
     <div class="container">
         <div class="row">
             {% for image in images %}
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.caption|default:gallery.title }}" style="height: 250px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                    <img src="{{ image.image }}" class="card-img-top" alt="{{ image.caption|default:gallery.title }}" style="height: 250px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
                     <div class="card-body">
                         <p class="card-text small">{{ image.caption|default:"No caption" }}</p>
                     </div>
@@ -45,7 +43,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body text-center">
-                            <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+                            <img src="{{ image.image }}" alt="{{ image.caption }}" class="img-fluid">
                             {% if image.caption %}
                             <p class="mt-2">{{ image.caption }}</p>
                             {% endif %}
