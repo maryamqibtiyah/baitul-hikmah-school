@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import SchoolLevel, Staff, News, SchoolInfo
-from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from .models import (
+    SchoolLevel, Staff, News, SchoolInfo, ContactMessage, 
+    AdmissionApplication, Event, Graduand, Gallery, GalleryImage, FAQ
+)
+from .forms import ContactForm, AdmissionForm
 
 def home(request):
     featured_news = News.objects.filter(is_featured=True)[:3]
@@ -17,14 +21,13 @@ def home(request):
 
 def about(request):
     """About page view"""
-    proprietress = Staff.objects.filter(staff_type='PROPRIETRESS').first()
-    head_teachers = Staff.objects.filter(staff_type='HEAD_TEACHER')
-    teachers = Staff.objects.filter(staff_type='TEACHER')[:8]
+    proprietress = Staff.objects.filter(staff_type='Proprietress').first()
+    head_teachers = Staff.objects.filter(staff_type='Head Teacher')
+    teachers = Staff.objects.filter(staff_type='Teacher')[:8]
     
     # Get school info from database
     school_info = SchoolInfo.objects.first()
     if not school_info:
-        # Create default if doesn't exist
         school_info = SchoolInfo.objects.create(
             years_of_excellence=13,
             total_students=300,
@@ -35,15 +38,16 @@ def about(request):
         'proprietress': proprietress,
         'head_teachers': head_teachers,
         'teachers': teachers,
-        'staff_count': 30,  # ← Changed from Staff.objects.count() to 14
+        'staff_count': Staff.objects.count(),
         'student_count': school_info.total_students,
         'years_count': school_info.years_of_excellence,
         'graduates_count': school_info.total_graduates,
     }
     return render(request, 'core/about.html', context)
+
 def school_level_detail(request, slug):
     level = get_object_or_404(SchoolLevel, slug=slug)
-    teachers = Staff.objects.filter(staff_type='TEACHER')[:6]
+    teachers = Staff.objects.filter(staff_type='Teacher')[:6]
     
     context = {
         'level': level,
@@ -75,10 +79,7 @@ def staff_directory(request):
         'staff_by_type': staff_by_type,
     }
     return render(request, 'core/staff.html', context)
-from .forms import ContactForm
-from django.contrib import messages
 
-# Add this function at the bottom
 def contact(request):
     """Contact page view"""
     if request.method == 'POST':
@@ -100,8 +101,6 @@ def contact(request):
         'school_hours_sat': 'Saturday: 4:00 PM - 6:00 PM',
     }
     return render(request, 'core/contact.html', context)
-from .forms import AdmissionForm
-from .models import AdmissionApplication
 
 def admission(request):
     """Admissions page with form"""
@@ -124,9 +123,6 @@ def admission_success(request, app_number):
     """Admission success page"""
     application = get_object_or_404(AdmissionApplication, application_number=app_number)
     return render(request, 'core/admission_success.html', {'application': application})
-    python
-from .models import Event
-from django.utils import timezone
 
 def events_list(request):
     """Events listing page"""
@@ -155,68 +151,11 @@ def events_list(request):
         start_date__gte=today
     )[:3]
     
-    context = {
-        'upcoming_events': upcoming_events,
-        'past_events': past_events,
-        'featured_events': featured_events,
-        'islamic_events': islamic_events,
-    }
-    return render(request, 'core/events.html', context)
-
-def event_detail(request, slug):
-    """Individual event page"""
-    event = get_object_or_404(Event, slug=slug)
-    
-    # Get related events (same type)
-    related_events = Event.objects.filter(
-        event_type=event.event_type
-    ).exclude(id=event.id)[:3]
-    
-    context = {
-        'event': event,
-        'related_events': related_events,
-    }
-    return render(request, 'core/event_detail.html', context)
-from .models import Event, Graduand
-from django.utils import timezone
-
-def events_list(request):
-    """Events listing page"""
-    today = timezone.now()
-    
-    # Upcoming events (future)
-    upcoming_events = Event.objects.filter(
-        start_date__gte=today,
-        end_date__gte=today
-    ).order_by('start_date')
-    
-    # Past events
-    past_events = Event.objects.filter(
-        end_date__lt=today
-    ).order_by('-start_date')[:6]
-    
-    # Featured events
-    featured_events = Event.objects.filter(
-        is_featured=True,
-        start_date__gte=today
-    )[:3]
-    
-    # Islamic events
-    islamic_events = Event.objects.filter(
-        event_type='ISLAMIC',
-        start_date__gte=today
-    )[:3]
-    
-    # End of Session Party (find or create event)
+    # End of Session Party
     end_of_session = Event.objects.filter(
         title__icontains='End of Session',
         start_date__gte=today
     ).first()
-    
-    # If no End of Session event exists, create a default one
-    if not end_of_session:
-        # This is just for display - you'll create one in admin
-        end_of_session = None
     
     # Get SS3 Graduands
     graduands = Graduand.objects.filter(graduation_year='2025', is_featured=True)[:12]
@@ -230,7 +169,20 @@ def events_list(request):
         'graduands': graduands,
     }
     return render(request, 'core/events.html', context)
-from .models import Gallery, GalleryImage
+
+def event_detail(request, slug):
+    """Individual event page"""
+    event = get_object_or_404(Event, slug=slug)
+    
+    related_events = Event.objects.filter(
+        event_type=event.event_type
+    ).exclude(id=event.id)[:3]
+    
+    context = {
+        'event': event,
+        'related_events': related_events,
+    }
+    return render(request, 'core/event_detail.html', context)
 
 def gallery_list(request):
     """Gallery listing page"""
@@ -255,10 +207,9 @@ def gallery_detail(request, slug):
         'images': images,
     }
     return render(request, 'core/gallery_detail.html', context)
+
 def faq(request):
     """FAQ page view"""
-    from .models import FAQ
-    
     # Group FAQs by category
     faqs_by_category = {}
     
