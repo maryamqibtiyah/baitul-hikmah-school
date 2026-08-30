@@ -19,7 +19,7 @@ class SchoolLevel(models.Model):
     islamic_studies = models.TextField(help_text="Quran, Arabic, Islamic studies")
     admission_requirements = models.TextField()
     fees_summary = models.TextField(help_text="Brief fee summary")
-    image = models.ImageField(upload_to='school_levels/', blank=True, null=True)
+    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
     order = models.IntegerField(default=0)
     
     class Meta:
@@ -67,7 +67,7 @@ class News(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
     summary = models.CharField(max_length=300)
-    image = models.ImageField(upload_to='news/')
+    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
     published_date = models.DateTimeField(auto_now_add=True)
     is_featured = models.BooleanField(default=False)
     views = models.IntegerField(default=0)
@@ -83,6 +83,7 @@ class News(models.Model):
     
     def __str__(self):
         return self.title
+
 class SchoolInfo(models.Model):
     years_of_excellence = models.IntegerField(default=25, help_text="Number of years the school has been operating")
     total_students = models.IntegerField(default=500, help_text="Total number of students enrolled")
@@ -93,6 +94,7 @@ class SchoolInfo(models.Model):
     
     class Meta:
         verbose_name_plural = "School Information"
+
 class ContactMessage(models.Model):
     name = models.CharField(max_length=200)
     email = models.EmailField()
@@ -108,6 +110,7 @@ class ContactMessage(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.subject}"
+
 class AdmissionApplication(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending Review'),
@@ -162,7 +165,6 @@ class AdmissionApplication(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.application_number:
-            # Generate application number: APP-2025-0001
             year = self.application_date.year if self.application_date else 2025
             last_app = AdmissionApplication.objects.filter(
                 application_number__startswith=f'APP-{year}'
@@ -180,6 +182,7 @@ class AdmissionApplication(models.Model):
     
     def __str__(self):
         return f"{self.application_number} - {self.student_name}"
+
 class Event(models.Model):
     EVENT_TYPES = (
         ('ACADEMIC', 'Academic Event'),
@@ -197,7 +200,7 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     location = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='events/', blank=True, null=True)
+    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
     is_featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     
@@ -212,20 +215,21 @@ class Event(models.Model):
     def __str__(self):
         return self.title
     
-        @property
-        def is_upcoming(self):
-            from django.utils import timezone
-            return self.start_date > timezone.now()
+    @property
+    def is_upcoming(self):
+        from django.utils import timezone
+        return self.start_date > timezone.now()
     
-        @property
-        def is_ongoing(self):
-            from django.utils import timezone
+    @property
+    def is_ongoing(self):
+        from django.utils import timezone
         return self.start_date <= timezone.now() <= self.end_date
+
 class Graduand(models.Model):
     """SS3 Graduating Students Profile"""
     name = models.CharField(max_length=200)
     nickname = models.CharField(max_length=100, blank=True, help_text="Short name or nickname")
-    photo = models.ImageField(upload_to='graduands/')
+    photo = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
     aspiration = models.TextField(help_text="Future aspiration or career goal")
     favorite_memory = models.TextField(help_text="Favorite memory from school")
     message = models.TextField(help_text="Message to school or younger students")
@@ -241,13 +245,14 @@ class Graduand(models.Model):
     
     def __str__(self):
         return f"{self.name} - Class of {self.graduation_year}"
+
 class Gallery(models.Model):
     """Photo Gallery Album"""
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
-    cover_image = models.ImageField(upload_to='gallery_covers/', blank=True, null=True)
-    event_date = models.DateField(blank=True, null=True, help_text="Date of the event")
+    cover_image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    event_date = models.DateField(blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     
@@ -266,7 +271,7 @@ class Gallery(models.Model):
 class GalleryImage(models.Model):
     """Individual images in a gallery"""
     gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='gallery/')
+    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
     caption = models.CharField(max_length=200, blank=True)
     order = models.IntegerField(default=0)
     
@@ -275,6 +280,7 @@ class GalleryImage(models.Model):
     
     def __str__(self):
         return f"{self.gallery.title} - Image {self.order + 1}"
+
 class FAQ(models.Model):
     CATEGORY_CHOICES = (
         ('ADMISSIONS', 'Admissions'),
@@ -298,37 +304,3 @@ class FAQ(models.Model):
     
     def __str__(self):
         return self.question
-class Gallery(models.Model):
-    """Photo Gallery Album"""
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)
-    description = models.TextField(blank=True)
-    cover_image = models.ImageField(upload_to='gallery_covers/', blank=True, null=True)
-    event_date = models.DateField(blank=True, null=True)
-    is_featured = models.BooleanField(default=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        ordering = ['-created_date']
-        verbose_name_plural = "Galleries"
-    
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-    
-    def __str__(self):
-        return self.title
-
-class GalleryImage(models.Model):
-    """Individual images in a gallery"""
-    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='gallery/')
-    caption = models.CharField(max_length=200, blank=True)
-    order = models.IntegerField(default=0)
-    
-    class Meta:
-        ordering = ['order']
-    
-    def __str__(self):
-        return f"{self.gallery.title} - Image {self.order + 1}"
