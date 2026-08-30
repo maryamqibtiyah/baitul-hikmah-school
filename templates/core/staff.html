@@ -34,11 +34,11 @@
                     <div class="card h-100 shadow-sm text-center">
                         <div class="card-body">
                             {% if staff.photo %}
-                            <img src="{{ staff.photo.url }}" alt="{{ staff.name }}">
+                                <img src="{{ staff.photo }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ staff.name }}">
                             {% else %}
-                            <div class="rounded-circle bg-secondary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
-                                <i class="fas fa-user fa-3x text-white"></i>
-                            </div>
+                                <div class="rounded-circle bg-secondary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                                    <i class="fas fa-user fa-3x text-white"></i>
+                                </div>
                             {% endif %}
                             <h5 class="card-title">{{ staff.name }}</h5>
                             <p class="text-primary">{{ staff.position }}</p>

@@ -3,9 +3,6 @@
 
 {% block content %}
 <!-- Hero Section -->
-<!-- Hero Section -->
-<!-- Hero Section with Gradient Background -->
-<!-- Hero Section with Background Image -->
 <section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{% static 'images/sch.jpg' %}'); background-size: cover; background-position: center; min-height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 60px 0;">
     <div class="container">
         <div class="row">
@@ -27,15 +24,11 @@
             {% for level in school_levels %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                   {% if level.image %}
-    {% if 'ik.imagekit.io' in level.image.url %}
-        <img src="{{ level.image.url }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
-    {% else %}
-        <img src="https://ik.imagekit.io/maryamqibtiyah/school-levels/{{ level.image }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
-    {% endif %}
-{% else %}
-<div class="card-img-top bg-secondary" style="height: 200px;"></div>
-{% endif %}
+                    {% if level.image %}
+                        <img src="{{ level.image }}" class="card-img-top" alt="{{ level.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-secondary" style="height: 200px;"></div>
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ level.name }}</h5>
                         <p class="text-muted">{{ level.age_range }}</p>
@@ -83,7 +76,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
                     {% if news.image %}
-                    <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ news.image }}" class="card-img-top" alt="{{ news.title }}" style="height: 200px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ news.title }}</h5>
@@ -108,9 +101,9 @@
             {% for staff in featured_staff %}
             <div class="col-md-3 mb-4 text-center">
                 {% if staff.photo %}
-                <img src="{{ staff.photo.url }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ staff.name }}">
+                    <img src="{{ staff.photo }}" class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover;" alt="{{ staff.name }}">
                 {% else %}
-                <div class="rounded-circle bg-secondary mx-auto mb-3" style="width: 150px; height: 150px;"></div>
+                    <div class="rounded-circle bg-secondary mx-auto mb-3" style="width: 150px; height: 150px;"></div>
                 {% endif %}
                 <h5>{{ staff.name }}</h5>
                 <p class="text-muted">{{ staff.position }}</p>
