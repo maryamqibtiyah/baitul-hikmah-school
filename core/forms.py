@@ -22,7 +22,8 @@ class AdmissionForm(forms.ModelForm):
             'quran_memorization', 'can_recite_quran', 'islamic_knowledge',
             'previous_school', 'previous_class',
             'parent_name', 'parent_relationship', 'parent_phone', 'parent_email', 'parent_occupation',
-            'address', 'city', 'state'
+            'address', 'city', 'state',
+            'birth_certificate', 'passport_photo', 'immunization_records', 'previous_school_report'
         ]
         widgets = {
             'student_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full name of student'}),
@@ -43,4 +44,10 @@ class AdmissionForm(forms.ModelForm):
             'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Home address'}),
             'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}),
             'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State'}),
+            'birth_certificate': forms.FileInput(attrs={'class': 'form-control', 'required': True}),
+            'passport_photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'immunization_records': forms.FileInput(attrs={'class': 'form-control'}),
+            'previous_school_report': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+        

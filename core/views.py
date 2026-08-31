@@ -9,7 +9,7 @@ from .forms import ContactForm, AdmissionForm
 
 def home(request):
     featured_news = News.objects.filter(is_featured=True)[:3]
-    school_levels = SchoolLevel.objects.all()
+    school_levels = SchoolLevel.objects.all()  # ← This is what passes data to the template
     featured_staff = Staff.objects.filter(is_featured=True)[:4]
     
     context = {

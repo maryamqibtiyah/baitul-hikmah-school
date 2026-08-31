@@ -41,7 +41,7 @@
                             {% endfor %}
                         {% endif %}
                         
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             
                             <h4 class="mb-3 text-primary">Student Information</h4>
@@ -71,13 +71,61 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_session" class="form-label">Academic Session *</label>
+                                    <select name="session" id="id_session" class="form-select" required>
+                                        <option value="2025/2026">2025/2026 Session</option>
+                                        <option value="2026/2027">2026/2027 Session</option>
+                                    </select>
+                                </div>
                             </div>
                             
-                            <h4 class="mb-3 text-primary">Parent Information</h4>
+                            <h4 class="mb-3 text-primary">Islamic Information</h4>
+                            <div class="row mb-4">
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_quran_memorization" class="form-label">Quran Memorization</label>
+                                    <input type="text" name="quran_memorization" id="id_quran_memorization" class="form-control" placeholder="e.g., 5 Juz, Completed Quran">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="can_recite_quran" id="id_can_recite_quran" class="form-check-input">
+                                        <label class="form-check-label" for="id_can_recite_quran">
+                                            Can recite Quran with Tajweed
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_islamic_knowledge" class="form-label">Islamic Knowledge</label>
+                                    <textarea name="islamic_knowledge" id="id_islamic_knowledge" class="form-control" rows="2" placeholder="Brief description of Islamic knowledge"></textarea>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mb-3 text-primary">Previous Education</h4>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_previous_school" class="form-label">Previous School</label>
+                                    <input type="text" name="previous_school" id="id_previous_school" class="form-control" placeholder="Previous school name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_previous_class" class="form-label">Last Class Completed</label>
+                                    <input type="text" name="previous_class" id="id_previous_class" class="form-control" placeholder="e.g., Primary 5">
+                                </div>
+                            </div>
+                            
+                            <h4 class="mb-3 text-primary">Parent/Guardian Information</h4>
                             <div class="row mb-4">
                                 <div class="col-md-6 mb-3">
                                     <label for="id_parent_name" class="form-label">Parent/Guardian Name *</label>
                                     <input type="text" name="parent_name" id="id_parent_name" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_parent_relationship" class="form-label">Relationship *</label>
+                                    <select name="parent_relationship" id="id_parent_relationship" class="form-select" required>
+                                        <option value="">Select Relationship</option>
+                                        <option value="FATHER">Father</option>
+                                        <option value="MOTHER">Mother</option>
+                                        <option value="GUARDIAN">Guardian</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="id_parent_phone" class="form-label">Phone Number *</label>
@@ -88,13 +136,8 @@
                                     <input type="email" name="parent_email" id="id_parent_email" class="form-control" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="id_parent_relationship" class="form-label">Relationship *</label>
-                                    <select name="parent_relationship" id="id_parent_relationship" class="form-select" required>
-                                        <option value="">Select Relationship</option>
-                                        <option value="FATHER">Father</option>
-                                        <option value="MOTHER">Mother</option>
-                                        <option value="GUARDIAN">Guardian</option>
-                                    </select>
+                                    <label for="id_parent_occupation" class="form-label">Occupation</label>
+                                    <input type="text" name="parent_occupation" id="id_parent_occupation" class="form-control" placeholder="Occupation">
                                 </div>
                             </div>
                             
@@ -114,10 +157,70 @@
                                 </div>
                             </div>
                             
+                            <!-- File Uploads Section -->
+                            <h4 class="mb-3 text-primary">Document Uploads</h4>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_birth_certificate" class="form-label">Birth Certificate <span class="text-danger">*</span></label>
+                                    <input type="file" name="birth_certificate" id="id_birth_certificate" class="form-control" required>
+                                    <small class="text-muted">Upload a scanned copy (PDF, JPG, or PNG) - Required</small>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_passport_photo" class="form-label">Passport Photo <span class="text-muted">(Optional)</span></label>
+                                    <input type="file" name="passport_photo" id="id_passport_photo" class="form-control">
+                                    <small class="text-muted">Recent passport photograph (JPG or PNG)</small>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_immunization_records" class="form-label">Immunization Records <span class="text-muted">(Optional)</span></label>
+                                    <input type="file" name="immunization_records" id="id_immunization_records" class="form-control">
+                                    <small class="text-muted">Upload immunization records (PDF, JPG, or PNG)</small>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_previous_school_report" class="form-label">Previous School Report <span class="text-muted">(Optional)</span></label>
+                                    <input type="file" name="previous_school_report" id="id_previous_school_report" class="form-control">
+                                    <small class="text-muted">Upload last term's report card (PDF, JPG, or PNG)</small>
+                                </div>
+                            </div>
+                            
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg px-5">Submit Application</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Info Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
+                        <h5>Step 1</h5>
+                        <p>Fill and submit the online application form</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h5>Step 2</h5>
+                        <p>Take entrance examination and interview</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="fas fa-check-circle fa-3x text-primary mb-3"></i>
+                        <h5>Step 3</h5>
+                        <p>Receive admission offer and complete registration</p>
                     </div>
                 </div>
             </div>

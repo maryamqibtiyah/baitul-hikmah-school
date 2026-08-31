@@ -3,9 +3,11 @@ from .models import SchoolLevel, Staff, News, SchoolInfo, Event
 
 @admin.register(SchoolLevel)
 class SchoolLevelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'level', 'age_range', 'order']
+    list_display = ['name', 'level', 'age_range', 'order', 'image']  # ← Add 'image'
     list_editable = ['order']
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['name', 'description']
+    fields = ['level', 'name', 'slug', 'age_range', 'description', 'curriculum', 'islamic_studies', 'admission_requirements', 'fees_summary', 'image', 'order']  # ← Add 'image'
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
@@ -21,7 +23,7 @@ class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ['views']
 
-@admin.register(SchoolInfo)
+@admin.register(SchoolInfo) 
 class SchoolInfoAdmin(admin.ModelAdmin):
     pass
 from .models import SchoolLevel, Staff, News, SchoolInfo, ContactMessage

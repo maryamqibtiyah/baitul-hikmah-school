@@ -19,18 +19,18 @@ class SchoolLevel(models.Model):
     islamic_studies = models.TextField(help_text="Quran, Arabic, Islamic studies")
     admission_requirements = models.TextField()
     fees_summary = models.TextField(help_text="Brief fee summary")
-    image = models.TextField(blank=True, null=True)  # ← Should be TextField
+    image = models.TextField(blank=True, null=True)
     order = models.IntegerField(default=0)
     
     class Meta:
         ordering = ['order']
     
-    def save(self, *args, **kwargs):  # ← This must be indented 4 spaces
-        print(f"Saving image URL: {self.image}")  # ← This must be indented 8 spaces
-        super().save(*args, **kwargs)  # ← This must be indented 8 spaces
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.name
+
 class Staff(models.Model):
     STAFF_TYPES = [
         ('PROPRIETOR', 'Proprietor'),
@@ -65,7 +65,7 @@ class News(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
     summary = models.CharField(max_length=300)
-    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    image = models.URLField(max_length=500, blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
     is_featured = models.BooleanField(default=False)
     views = models.IntegerField(default=0)
@@ -151,6 +151,12 @@ class AdmissionApplication(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     
+    # File Uploads
+    birth_certificate = models.FileField(upload_to='admissions/birth_certificates/')
+    passport_photo = models.FileField(upload_to='admissions/passport_photos/', blank=True, null=True)
+    immunization_records = models.FileField(upload_to='admissions/immunization_records/', blank=True, null=True)
+    previous_school_report = models.FileField(upload_to='admissions/school_reports/', blank=True, null=True)
+    
     # Application Tracking
     application_number = models.CharField(max_length=20, unique=True, blank=True)
     application_date = models.DateTimeField(auto_now_add=True)
@@ -198,7 +204,7 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     location = models.CharField(max_length=200)
-    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    image = models.URLField(max_length=500, blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     
@@ -227,7 +233,7 @@ class Graduand(models.Model):
     """SS3 Graduating Students Profile"""
     name = models.CharField(max_length=200)
     nickname = models.CharField(max_length=100, blank=True, help_text="Short name or nickname")
-    photo = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    photo = models.URLField(max_length=500, blank=True, null=True)
     aspiration = models.TextField(help_text="Future aspiration or career goal")
     favorite_memory = models.TextField(help_text="Favorite memory from school")
     message = models.TextField(help_text="Message to school or younger students")
@@ -249,7 +255,7 @@ class Gallery(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
-    cover_image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    cover_image = models.URLField(max_length=500, blank=True, null=True)
     event_date = models.DateField(blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -269,7 +275,7 @@ class Gallery(models.Model):
 class GalleryImage(models.Model):
     """Individual images in a gallery"""
     gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, related_name='images')
-    image = models.URLField(max_length=500, blank=True, null=True)  # ← Changed to URLField
+    image = models.URLField(max_length=500, blank=True, null=True)
     caption = models.CharField(max_length=200, blank=True)
     order = models.IntegerField(default=0)
     
